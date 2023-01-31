@@ -8,6 +8,7 @@ import {
   Flex,
   Text,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { GiHandBag } from "react-icons/gi";
@@ -15,17 +16,31 @@ import { AiFillApple, AiFillGoogleCircle } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
 import { MdEmail, MdLock, MdPerson } from "react-icons/md";
 import FormInputComponent from "./FormInputComponent";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
+import { registerApi } from "../store/authReducer/auth.action";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({});
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const toast=useToast();
   const onChangeHandler = (e) => {
     let { name, value } = e.target;
     let payload = { ...form, [name]: value };
     console.log(payload);
     setForm(payload);
   };
-  let onLogin = () => {};
+  let onRegister = () => {
+dispatch(registerApi(form)).then((res)=>{
+  toast({
+    title:'Successfully Registered',
+    status:'success',
+    position:'top'
+})
+navigate('/login');
+});
+  };
   return (
     <Container m="auto" p="20px">
       <FormInputComponent
@@ -44,7 +59,7 @@ const RegisterForm = () => {
       />
       <FormInputComponent
         type={"text"}
-        name={"useid"}
+        name={"userId"}
         placeholder={"UserID"}
         onChangeHandler={onChangeHandler}
         childern={<MdPerson color="orange" />}
@@ -57,7 +72,7 @@ const RegisterForm = () => {
         childern={<MdLock color="orange" />}
       />
       <Center>
-        <Button m="10px" color={'black'}  onClick={onLogin}>
+        <Button m="10px" color={'black'}  onClick={onRegister}>
           Register
         </Button>
       </Center>
