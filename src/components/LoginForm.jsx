@@ -22,7 +22,11 @@ const LoginForm = () => {
     let payload = { ...form, role };
     console.log(payload);
     dispatch(loginApi(payload)).then(() => {
-      navigate("/getlocation", { state: { from: location.pathname } });
+      if (role === "user") {
+        navigate("/getlocation", { state: { from: location.pathname } });
+      } else {
+        navigate("/profile", { state: { from: location.pathname } });
+      }
     });
   };
 
