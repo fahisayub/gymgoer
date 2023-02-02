@@ -1,4 +1,4 @@
-# Gymgoer
+# GYMGOER
  
  ## Deploy Links:
   Netlify Link : https://gymgoer.netlify.app/
