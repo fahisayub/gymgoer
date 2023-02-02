@@ -45,15 +45,6 @@ user will see an option to type the user code of ‘normal user’ and a camera 
 scan the QR code of ‘normal user’. Once the QR code is scanned or the user
 code is punched, it should populate in the list shown below.
 
-## References :
-- https://chakra-ui.com/
-- https://date-fns.org/
-- https://developer.mozilla.org/
-- https://rapidapi.com/
-- https://docs.mapbox.com/
-- https://visgl.github.io/react-map-gl/docs
-
-
 ## Toolsets :
 - cyclic.sh
 - Netlify
@@ -88,3 +79,11 @@ code is punched, it should populate in the list shown below.
 - nodemon
 - passport
 - short-uuid
+
+## References :
+- https://chakra-ui.com/
+- https://date-fns.org/
+- https://developer.mozilla.org/
+- https://rapidapi.com/
+- https://docs.mapbox.com/
+- https://visgl.github.io/react-map-gl/docs
