@@ -17,8 +17,8 @@ const MapComponent = ({ mapdata }) => {
     >
       <Map
         initialViewState={{
-          longitude: mapdata.longitude,
-          latitude: mapdata.latitude,
+          longitude: mapdata.longitude||10.00,
+          latitude: mapdata.latitude||7.60,
           zoom: 10,
         }}
         attributionControl={false}
@@ -29,8 +29,8 @@ const MapComponent = ({ mapdata }) => {
       
 
         <Marker
-          longitude={mapdata.longitude}
-          latitude={mapdata.latitude}
+          longitude={mapdata.longitude||10.00}
+          latitude={mapdata.latitude||7.60}
           anchor="bottom"
         >
           <MdLocationPin fontSize="40px" color="red" />

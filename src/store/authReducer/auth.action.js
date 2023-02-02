@@ -22,10 +22,9 @@ export const loginApi = (payload) => async (dispatch) => {
 
     await axios.post('https://gymgoer.cyclic.app/user/login', payload).then((res) => {
         dispatch({ type: types.USER_LOGIN_SUCCESS, payload: res.data });
-    sessionStorage.setItem('accesstoken', JSON.stringify(res.data.token));
-    sessionStorage.setItem('refreshtoken', JSON.stringify(res.data.refreshtoken));
+        sessionStorage.setItem('accesstoken', JSON.stringify(res.data.token));
+        sessionStorage.setItem('refreshtoken', JSON.stringify(res.data.refreshtoken));
         console.log(res.data);
-
     }).catch((err) => {
         dispatch({ type: types.USER_LOGIN_FAILURE })
         console.log(err);

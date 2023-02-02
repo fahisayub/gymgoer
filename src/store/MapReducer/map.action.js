@@ -8,15 +8,16 @@ export const getUserLocation = () => (dispatch) => {
     if (!geolocationAPI) {
         console.log('Geolocation API is not available in your browser!')
     } else {
+        //796fde8665mshe91b94d1a86795dp1397b4jsnd82914966c54
         geolocationAPI.getCurrentPosition((position) => {
             const { coords } = position;
-
             const config = {
                 method: 'GET',
                 url: 'https://address-from-to-latitude-longitude.p.rapidapi.com/geolocationapi',
                 params: { lat: coords.latitude, lng: coords.longitude },
                 headers: {
                     'X-RapidAPI-Key': '8db96e9f6dmsh8398ff707a11d6ap1e64e5jsnac10552f653e',
+                    //TODO: update X-RapidAPI-Key with this :796fde8665mshe91b94d1a86795dp1397b4jsnd82914966c54 in production
                     'X-RapidAPI-Host': 'address-from-to-latitude-longitude.p.rapidapi.com'
                 }
             };

@@ -5,6 +5,7 @@ import { MdLock, MdPerson } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginApi } from "../store/authReducer/auth.action";
+import { getPorfileApi } from "../store/profileReducer/profile.action";
 
 const LoginForm = () => {
   const [role, setRole] = useState("user");
@@ -27,6 +28,8 @@ const LoginForm = () => {
       } else {
         navigate("/profile", { state: { from: location.pathname } });
       }
+      dispatch(getPorfileApi())
+
     });
   };
 

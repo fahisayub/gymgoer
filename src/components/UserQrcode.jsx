@@ -1,7 +1,7 @@
 import { Box, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import {  QRCodeSVG } from "qrcode.react";
-const UserQrcode = () => {
+const UserQrcode = ({referal}) => {
   return (
     <VStack w="full">
       <Box
@@ -12,7 +12,7 @@ const UserQrcode = () => {
         py="5px"
         textAlign={"center"}
       >
-        <QRCodeSVG value="fahiz" width={"100%"} />
+        <QRCodeSVG value={referal} width={"100%"} />
       </Box>
       <Text color="white" fontWeight="semibold">
         User Code
@@ -25,7 +25,7 @@ const UserQrcode = () => {
         py="5px"
         px="50px"
       >
-        SE79ESI
+        {referal}
       </Box>
     </VStack>
   );

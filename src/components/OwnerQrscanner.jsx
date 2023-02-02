@@ -18,17 +18,30 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import React from "react";
+import { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
-import { QrCodeScanner } from "react-simple-qr-code-scanner";
-const OwnerQrscanner = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+import { useDispatch } from "react-redux";
+import { getUserDetailsApi } from "../store/profileReducer/profile.action";
+import { QrReader } from 'react-qr-reader';
+import { addLogApi } from "../store/logReducer/log.action";
 
+const OwnerQrscanner = ({uid}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+const [referal,setReferal]=useState('NO Data');
+const dispatch=useDispatch();
   const onChangeHandler = (e) => {
     let { value } = e.target;
     console.log(value);
+    setReferal(value);
   };
-  const onSubmitHandler = () => {};
+  const onSubmitHandler = () => {
+    let payload={
+      referal,uid
+    }
+    dispatch(addLogApi(payload));
+    console.log(referal);
+  };
   
   return (
     <VStack>
@@ -71,14 +84,21 @@ const OwnerQrscanner = () => {
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-          <QrCodeScanner //TODO: qrcode scanner
-        onResult={(res) => {
-          console.log(res);
+            <Text>{referal}</Text>
+          <QrReader
+        onResult={(result, error) => {
+          if (!!result) {
+            setReferal(result?.text);
+            onSubmitHandler();
+            onClose();
+
+          }
+
+          if (!!error) {
+            console.info(error);
+          }
         }}
-        Errors={(error) => {
-          console.log(error);
-        }}
-        facingMode={"user"}
+        style={{ width: '100%' }}
       />
           </ModalBody>
 
@@ -86,7 +106,7 @@ const OwnerQrscanner = () => {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
+            <Button variant="ghost">Done</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

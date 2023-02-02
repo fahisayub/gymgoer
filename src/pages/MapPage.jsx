@@ -15,6 +15,7 @@ import Searchbar from "../components/Searchbar";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserLocation } from "../store/MapReducer/map.action";
+import { updatePorfileApi } from "../store/profileReducer/profile.action";
 
 const MapPage = () => {
  const {isLoading, mapdata}=useSelector(state=>state.mapReducer);
@@ -24,6 +25,11 @@ const MapPage = () => {
   let from = location?.state?.from || "/";
   const onConfirmHandler = () => {
     console.log("location");
+    let payload={
+      city:mapdata?.city||'Angamaly'
+    }
+    console.log(payload)
+    dispatch(updatePorfileApi(payload))
     navigate("/profile", { state: { from: location.pathname } });
   };
 
@@ -49,7 +55,7 @@ const MapPage = () => {
           to={from}
           icon={<FaArrowLeft />}
         />
-        <Avatar size={"sm"} />
+        <Avatar size={"sm"}src="https://i.pravatar.cc/300" />
       </Flex>
       <VStack
         border={"3px solid yellow"}
