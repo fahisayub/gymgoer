@@ -1,12 +1,13 @@
 
+import { Container } from '@chakra-ui/react';
 import MainRoute from './routes/MainRoute';
 
 function App() {
   return (
-    <div style={{ backgroundColor: 'indigo', height: '100vh', padding: '5px', }}>
+    <Container bg='indigo' maxW='full' h={['100vh']} p='0px' m='0px'>
 
       <MainRoute />
-    </div>
+    </Container>
   );
 }
 

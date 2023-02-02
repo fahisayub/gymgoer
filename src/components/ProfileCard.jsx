@@ -1,9 +1,19 @@
-import { Avatar, Box, Heading, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Heading, Skeleton, SkeletonText, VStack } from "@chakra-ui/react";
 import React from "react";
 import UserQrcode from "./UserQrcode";
 import OwnerQrscanner from "./OwnerQrscanner";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getPorfileApi } from "../store/profileReducer/profile.action";
 
-const ProfileCard = ({profile}) => {
+const ProfileCard = () => {
+  const {profile} = useSelector((state) => state.profileReducer);
+  const {isLoading} = useSelector((state) => state.profileReducer);
+  const dispatch=useDispatch();
+useEffect(()=>{
+  dispatch(getPorfileApi())
+  
+},[dispatch])
   return (
     <VStack h="60%" w="90%" margin={"auto"}>
       <Avatar
@@ -28,9 +38,9 @@ const ProfileCard = ({profile}) => {
           textAlign={"center"}
           size={"md"}
         >
-          {profile.userId}
+          {isLoading?<SkeletonText textAlign={'center'} m='auto' />:profile?.userId}
         </Heading>
-        {profile.role === "admin" ? (
+        { isLoading?<Skeleton h='150px' w='80%' m='auto' borderRadius={'20px'} />:profile?.role === "admin" ? (
           <OwnerQrscanner uid={profile?._id} />
           ) : (
           <UserQrcode referal={profile?.referalCode} />

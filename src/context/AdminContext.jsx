@@ -5,7 +5,7 @@ const AdminContext = ({admin,user}) => {
     const {role}=useSelector(state=>state.auth);
     if(role==='admin'){
       return  admin
-    }else{
+    }else if(role==='user'){
         return user
     }
 };

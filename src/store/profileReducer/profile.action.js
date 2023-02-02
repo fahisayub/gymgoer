@@ -1,8 +1,8 @@
 import * as types from './profile.types';
 import axios from 'axios';
 
-let token = JSON.parse(sessionStorage.getItem('accesstoken'));
 export const getPorfileApi = (payload) => async (dispatch) => {
+    let token = JSON.parse(sessionStorage.getItem('accesstoken'));
     dispatch({ type: types.GET_PROFILE_LOADING });
     //payload is uid
     await axios.get(`https://gymgoer.cyclic.app/profile/`, {
@@ -18,6 +18,8 @@ export const getPorfileApi = (payload) => async (dispatch) => {
 
 }
 export const getUserDetailsApi = (referalCode) => async (dispatch) => {
+    let token = JSON.parse(sessionStorage.getItem('accesstoken'));
+
     dispatch({ type: types.GET_USER_DETAILS_LOADING });
     //payload is referalcode
     await axios.get(`https://gymgoer.cyclic.app/profile/userdata/${referalCode}`, {
@@ -33,6 +35,8 @@ export const getUserDetailsApi = (referalCode) => async (dispatch) => {
 
 }
 export const updatePorfileApi = (payload) => async (dispatch) => {
+    let token = JSON.parse(sessionStorage.getItem('accesstoken'));
+
     dispatch({ type: types.UPDATE_PROFILE_LOADING });
 
     await axios.put(`https://gymgoer.cyclic.app/profile/`, payload, {
@@ -48,3 +52,9 @@ export const updatePorfileApi = (payload) => async (dispatch) => {
 
 }
 
+export const clearProfileApi=()=>async(dispatch)=>{
+    dispatch({type:types.GET_PROFILE_SUCCESS,payload:{}});
+    dispatch({type:types.GET_USER_DETAILS_LOADING,payload:{}})
+
+
+}

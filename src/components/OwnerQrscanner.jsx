@@ -22,28 +22,29 @@ import { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { QrReader } from 'react-qr-reader';
+import { QrReader } from "react-qr-reader";
 import { addLogApi, getLogsApi } from "../store/logReducer/log.action";
 
-const OwnerQrscanner = ({uid}) => {
+const OwnerQrscanner = ({ uid }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-const [referal,setReferal]=useState('NO Data');
-const dispatch=useDispatch();
+  const [referal, setReferal] = useState("");
+  const dispatch = useDispatch();
   const onChangeHandler = (e) => {
     let { value } = e.target;
     console.log(value);
     setReferal(value);
   };
-  const onSubmitHandler = () => {
-    let payload={
-      referal,uid
-    }
-    dispatch(addLogApi(payload)).then(()=>{
+  const onSubmitHandler = (referal) => {
+    const payload = {
+      referal,
+      uid,
+    };
+    dispatch(addLogApi(payload)).then(() => {
       dispatch(getLogsApi());
     });
     console.log(payload);
   };
-  
+
   return (
     <VStack>
       <Text color={"gray"}>Open Camera to scan QR</Text>
@@ -73,7 +74,7 @@ const dispatch=useDispatch();
               w={"100%"}
               size={"sm"}
               colorScheme="green"
-              onClick={onSubmitHandler}
+              onClick={()=>onSubmitHandler(referal)}
               icon={<MdDone />}
             />
           </InputRightElement>
@@ -86,21 +87,22 @@ const dispatch=useDispatch();
           <ModalCloseButton />
           <ModalBody>
             <Text>{referal}</Text>
-          <QrReader
-        onResult={(result, error) => {
-          if (!!result) {
-            setReferal(result?.text);
-            onSubmitHandler();
-            onClose();
+            <QrReader
+              onResult={(result, error) => {
+                if (!!result) {
+                  setReferal(result?.text);
 
-          }
+                  onSubmitHandler( result?.text);
 
-          if (!!error) {
-            console.info(error);
-          }
-        }}
-        style={{ width: '100%' }}
-      />
+                  onClose();
+                }
+
+                if (!!error) {
+                  console.info(error);
+                }
+              }}
+              style={{ width: "100%" }}
+            />
           </ModalBody>
 
           <ModalFooter>

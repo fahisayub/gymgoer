@@ -16,7 +16,7 @@ export const getUserLocation = () => (dispatch) => {
                 url: 'https://address-from-to-latitude-longitude.p.rapidapi.com/geolocationapi',
                 params: { lat: coords.latitude, lng: coords.longitude },
                 headers: {
-                    'X-RapidAPI-Key': '8db96e9f6dmsh8398ff707a11d6ap1e64e5jsnac10552f653e',
+                    'X-RapidAPI-Key': '796fde8665mshe91b94d1a86795dp1397b4jsnd82914966c54',
                     //TODO: update X-RapidAPI-Key with this :796fde8665mshe91b94d1a86795dp1397b4jsnd82914966c54 in production
                     'X-RapidAPI-Host': 'address-from-to-latitude-longitude.p.rapidapi.com'
                 }
@@ -34,4 +34,9 @@ export const getUserLocation = () => (dispatch) => {
             dispatch({ type: types.GET_MAP_DATA_FAILURE });
         })
     }
+}
+export const clearMapApi=()=>async(dispatch)=>{
+    dispatch({type:types.GET_MAP_DATA_SUCCESS,payload:{}});
+
+
 }

@@ -1,5 +1,5 @@
 import { Button, Center, Container, Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import FormInputComponent from "./FormInputComponent";
 import { MdLock, MdPerson } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -23,33 +23,34 @@ const LoginForm = () => {
     let payload = { ...form, role };
     console.log(payload);
     dispatch(loginApi(payload)).then(() => {
+      dispatch(getPorfileApi())
       if (role === "user") {
         navigate("/getlocation", { state: { from: location.pathname } });
       } else {
         navigate("/profile", { state: { from: location.pathname } });
       }
-      dispatch(getPorfileApi())
 
     });
   };
+  
 
   return (
     <Container m="auto" p="20px">
       <Flex justifyContent={"space-evenly"} mb="60px">
         <Button
-          colorScheme={role === "user" ? "gray" : "orange"}
-          size={role === "user" ? "md" : "lg"}
+          colorScheme={role === "admin" ? "gray" : "orange"}
+          size={role === "admin" ? "md" : "lg"}
           w="100px"
-          isDisabled={role === "user" ? true : false}
+         // isDisabled={role === "admin" ? true : false}
           onClick={() => setRole("user")}
         >
           User
         </Button>
         <Button
-          colorScheme={role === "admin" ? "gray" : "orange"}
-          size={role === "admin" ? "md" : "lg"}
+          colorScheme={role === "user" ? "gray" : "orange"}
+          size={role === "user" ? "md" : "lg"}
           w="100px"
-          isDisabled={role === "admin" ? true : false}
+        //  isDisabled={role === "user" ? true : false}
           onClick={() => setRole("admin")}
         >
           Owner
@@ -71,7 +72,7 @@ const LoginForm = () => {
       />
       <Center>
         <Button color={"black"} onClick={onLogin}>
-          Login
+          {role==='admin'?"Owner Login":'Login'}
         </Button>
       </Center>
     </Container>

@@ -1,8 +1,19 @@
-import { Box, Container, Heading, Skeleton, VStack } from "@chakra-ui/react";
-import React from "react";
+import {  Container, Heading, Skeleton, VStack } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import LogCard from "./LogCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getLogsApi } from "../store/logReducer/log.action";
 
-const EntryLogs = ({ logs, isLoading }) => {
+const EntryLogs = () => {
+  const {isLoading,entrylogs} = useSelector((state) => state.logReducer);
+  const dispatch = useDispatch();
+  
+  
+  useEffect(() => {
+    if (entrylogs.length===0) {
+      dispatch(getLogsApi());
+    }
+  }, [entrylogs.length, dispatch]);
   return (
     <Container
       w="90%"
@@ -37,7 +48,7 @@ const EntryLogs = ({ logs, isLoading }) => {
                   key={i}
                 />
               ))
-          : logs.map((log, i) => {
+          : entrylogs?.map((log, i) => {
               return (
                 <LogCard key={log._id} log={log}  />
               );

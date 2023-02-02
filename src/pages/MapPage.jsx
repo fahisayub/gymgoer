@@ -18,18 +18,18 @@ import { getUserLocation } from "../store/MapReducer/map.action";
 import { updatePorfileApi } from "../store/profileReducer/profile.action";
 
 const MapPage = () => {
- const {isLoading, mapdata}=useSelector(state=>state.mapReducer);
+  const { isLoading, mapdata } = useSelector((state) => state.mapReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   let from = location?.state?.from || "/";
   const onConfirmHandler = () => {
     console.log("location");
-    let payload={
-      city:mapdata?.city||'Angamaly'
-    }
-    console.log(payload)
-    dispatch(updatePorfileApi(payload))
+    let payload = {
+      city: mapdata?.city || "Angamaly",
+    };
+    console.log(payload);
+    dispatch(updatePorfileApi(payload));
     navigate("/profile", { state: { from: location.pathname } });
   };
 
@@ -41,12 +41,12 @@ const MapPage = () => {
     <Container
       m="auto"
       bg="white"
-      h="700px"
-      w="360px"
+      h="full"
       p="0px"
-      borderRadius="45px"
+      w={["auto",'360px','360px']}
+      borderRadius={['0px','45px','45px','45px','45px']}
       overflow={"hidden"}
-      border={"3px solid yellow"}
+      border={["none","3px solid yellow"]}
     >
       <Flex justifyContent={"space-between"} pt="20px" px="20px">
         <IconButton
@@ -55,7 +55,7 @@ const MapPage = () => {
           to={from}
           icon={<FaArrowLeft />}
         />
-        <Avatar size={"sm"}src="https://i.pravatar.cc/300" />
+        <Avatar size={"sm"} src="https://i.pravatar.cc/300" />
       </Flex>
       <VStack
         border={"3px solid yellow"}
@@ -66,7 +66,11 @@ const MapPage = () => {
         bgGradient="linear(to-b, indigo,indigo, blueviolet)"
       >
         <Searchbar />
-        {isLoading?<Skeleton w='90%' h='70%' borderRadius={'20px'} /> :<MapComponent mapdata={mapdata} />}
+        {isLoading ? (
+          <Skeleton w="90%" h="70%" borderRadius={"20px"} />
+        ) : (
+          <MapComponent mapdata={mapdata} />
+        )}
         <Button
           w="80%"
           onClick={onConfirmHandler}

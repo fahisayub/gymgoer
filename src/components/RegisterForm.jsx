@@ -16,8 +16,8 @@ import { AiFillApple, AiFillGoogleCircle } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
 import { MdEmail, MdLock, MdPerson } from "react-icons/md";
 import FormInputComponent from "./FormInputComponent";
-import { NavLink, useNavigate } from "react-router-dom";
-import {useDispatch, useSelector} from 'react-redux';
+import { Link as Navlink, useNavigate } from "react-router-dom";
+import {useDispatch} from 'react-redux';
 import { registerApi } from "../store/authReducer/auth.action";
 
 const RegisterForm = () => {
@@ -100,7 +100,7 @@ navigate('/login');
       </Box>
       <Box textAlign={"center"}>
         <Text color={"orange"}>Already hav an account?</Text>
-        <NavLink to="/login">Click here to signin</NavLink>
+        <Link as={Navlink} to="/login"color="white" >Click here to signin</Link>
       </Box>
     </Container>
   );
