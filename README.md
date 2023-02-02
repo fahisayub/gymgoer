@@ -50,6 +50,8 @@ code is punched, it should populate in the list shown below.
 - https://date-fns.org/
 - https://developer.mozilla.org/
 - https://rapidapi.com/
+- https://docs.mapbox.com/
+- https://visgl.github.io/react-map-gl/docs
 
 
 ## Toolsets :
@@ -77,3 +79,12 @@ code is punched, it should populate in the list shown below.
 - react-script
 - redux
 - redux-thunk
+- argon2
+- cors
+- dotenv
+- express
+- jsonwebtoken
+- mongoose
+- nodemon
+- passport
+- short-uuid
