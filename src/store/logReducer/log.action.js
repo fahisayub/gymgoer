@@ -1,4 +1,3 @@
-import { getUserDetailsApi } from '../profileReducer/profile.action';
 import * as types from './log.types';
 import axios from 'axios';
 
@@ -8,9 +7,11 @@ let token = JSON.parse(sessionStorage.getItem('accesstoken'));
 export const getLogsApi = (payload) => async (dispatch) => {
     dispatch({ type: types.GET_LOGS_LOADING });
 
-    await axios.get('https://gymgoer.cyclic.app/entrylogs/getlogs').then((res) => {
+    await axios.get('https://gymgoer.cyclic.app/entrylogs/get',{
+        headers: { Authorization: `Bearer ${token}` },
+    }).then((res) => {
         dispatch({ type: types.GET_LOGS_SUCCESS, payload: res.data });
-        console.log(payload);
+        console.log(res.data);
     }).catch((err) => {
         dispatch({ type: types.GET_LOGS_FAILURE })
         console.log(err);
@@ -29,10 +30,12 @@ export const addLogApi = ({ referal, uid }) => async (dispatch) => {
     let payload = {
         city: userdata.city,
         userUid: userdata._id,
-        userName: userdata.name,
-        adminId: uid
+        userName: userdata.userId,
+        adminUid: uid
     }
-    await axios.post('https://gymgoer.cyclic.app/entrylogs/addentry', payload).then((res) => {
+    await axios.post('https://gymgoer.cyclic.app/entrylogs/create', payload,{
+        headers: { Authorization: `Bearer ${token}` },
+    }).then((res) => {
         dispatch({ type: types.SET_LOG_SUCCESS });
         console.log(payload);
         dispatch(getLogsApi());

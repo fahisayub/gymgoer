@@ -22,9 +22,8 @@ import { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { getUserDetailsApi } from "../store/profileReducer/profile.action";
 import { QrReader } from 'react-qr-reader';
-import { addLogApi } from "../store/logReducer/log.action";
+import { addLogApi, getLogsApi } from "../store/logReducer/log.action";
 
 const OwnerQrscanner = ({uid}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,8 +38,10 @@ const dispatch=useDispatch();
     let payload={
       referal,uid
     }
-    dispatch(addLogApi(payload));
-    console.log(referal);
+    dispatch(addLogApi(payload)).then(()=>{
+      dispatch(getLogsApi());
+    });
+    console.log(payload);
   };
   
   return (

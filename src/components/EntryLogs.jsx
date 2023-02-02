@@ -1,9 +1,8 @@
-import { Box, Container, Heading, VStack } from "@chakra-ui/react";
+import { Box, Container, Heading, Skeleton, VStack } from "@chakra-ui/react";
 import React from "react";
-import { useState } from "react";
+import LogCard from "./LogCard";
 
-const EntryLogs = () => {
-  const [logs, setLogs] = useState(Array(10).fill(1));
+const EntryLogs = ({ logs, isLoading }) => {
   return (
     <Container
       w="90%"
@@ -21,36 +20,28 @@ const EntryLogs = () => {
         Entry Log
       </Heading>
       <VStack
-        overflowY={"scroll"}
-        pb="100px"
-        sx={{
-          "&::-webkit-scrollbar": {
-            width: "5px",
-            borderRadius: "3px",
-            backgroundColor: `rgba(0, 0, 0, 0.05)`,
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: `rgba(0, 0, 0, 0.05)`,
-          },
-        }}
-        h="200px"
+        pb="50px"
+        
       >
-        {logs.map((a, i) => {
-          return (
-            <Box
-              w={"90%"}
-              borderRadius={"5px"}
-              color={"white"}
-              boxShadow={"base"}
-              p="5px"
-              bg={"indigo"}
-              m="5px"
-              key={i}
-            >
-              {a}
-            </Box>
-          );
-        })}
+        {isLoading
+          ? Array(5)
+              .fill(1)
+              .map((a, i) => (
+                <Skeleton
+                  w={"90%"}
+                  h='50px'
+                  borderRadius={"5px"}
+                  color={"white"}
+                  p="5px"
+                  m="5px"
+                  key={i}
+                />
+              ))
+          : logs.map((log, i) => {
+              return (
+                <LogCard key={log._id} log={log}  />
+              );
+            })}
       </VStack>
     </Container>
   );
